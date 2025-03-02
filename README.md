@@ -312,4 +312,4 @@ mysql> SELECT * from usuarios;
 |  10 | Ximena   | Saldaña   | cbtis-246    |
 +-----+----------+-----------+--------------+
 10 rows in set (0.00 sec)
-mysql> 
+mysql> h
