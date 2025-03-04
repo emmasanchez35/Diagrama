@@ -8,6 +8,7 @@ Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
 owners.
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
 mysql> CREATE TABLE playoffround(
     ->     id int (16) NOT NULL,
     ->     team1id int (13) NOT NULL,
@@ -18,6 +19,7 @@ mysql> CREATE TABLE playoffround(
     ->     PRIMARY KEY (id, StartTime)
     -> );
 Query OK, 0 rows affected, 4 warnings (0.03 sec)
+
 mysql> CREATE TABLE HockeyGame(
     ->     id int (16) NOT NULL,
     ->     roundId int (13) NOT NULL,
@@ -29,6 +31,7 @@ mysql> CREATE TABLE HockeyGame(
     ->     PRIMARY KEY (id, startTime)
     -> );
 Query OK, 0 rows affected, 4 warnings (0.02 sec)
+
 mysql> CREATE TABLE GameScores(
     ->     id int (16) NOT NULL,
     ->     team1Score int (13) NOT NULL,
@@ -65,38 +68,6 @@ mysql> CREATE TABLE UserStatsPicks(
     -> );
 Query OK, 0 rows affected, 10 warnings (0.02 sec)
 
-mysql> CREATE TABLE User(
-    id int (16) NOT NULL,
-    username varchar(50) NOT NULL,
-    password varchar(50) NOT NULL,
-    PRIMARY KEY (id)
-);
-CREATE TABLE User(
-^C
-mysql>     id int (16) NOT NULL,
-    ->     username varchar(50) NOT NULL,
-    ->     password varchar(50) NOT NULL,
-    ->     PRIMARY KEY (id)
-    -> );
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id int (16) NOT NULL,
-    username varchar(50) NOT NULL,
-    password varchar(50' at line 1
-mysql> CREATE TABLE User(
-    id int (16) NOT NULL,
-    username varchar(50) NOT NULL,
-    password varchar(50) NOT NULL,
-    PRIMARY KEY (id)
-);
-CREATE TABLE User(
-^C
-mysql>     id int (16) NOT NULL,
-    ->     username varchar(50) NOT NULL,
-    ->     password varchar(50) NOT NULL,
-    ->     PRIMARY KEY (id)
-    -> );
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id int (16) NOT NULL,
-    username varchar(50) NOT NULL,
-    password varchar(50' at line 1
 mysql> CREATE TABLE User(
     ->     id int (16) NOT NULL,
     ->     username varchar(50) NOT NULL,
@@ -178,17 +149,6 @@ mysql> DESC GameScores;
 +------------+------+------+-----+---------+-------+
 3 rows in set (0.00 sec)
 
-mysql> INSERT INTO(id,team1Score,team2Score)
-    ->        values('6','5','7');
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id,team1Score,team2Score)
-       values('6','5','7')' at line 1
-mysql> INSERT INTO(id,team1Score,team2Score)
-    ->        values(6','5','7);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id,team1Score,team2Score)
-       values(6','5','7)' at line 1
-mysql> INSERT INTO GameScores(id,team1Score,team2Score)
-    ->        values(6','5','7);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '','5','7)' at line 2
 mysql> INSERT INTO GameScores(id,team1Score,team2Score)
     ->        values('6','5','7');
 Query OK, 1 row affected (0.00 sec)
@@ -207,23 +167,6 @@ mysql> DESC HockeyGame;
 +-------------+--------------+------+-----+---------+-------+
 7 rows in set (0.00 sec)
 
-mysql> INSERT INTO GameScores(id,roundId,startTime,endTime,description,team1Id,team2Id)
-    ->        values('8','9','2025/03/02','2025/03/02','5','6','vachar');
-ERROR 1054 (42S22): Unknown column 'roundId' in 'field list'
-mysql> INSERT INTO GameScores(id,roundId,startTime,endTime,description,team1Id,team2Id)
-    ->        values('8','9','2025/03/02','2025/03/02','Rojo_34','6','7');
-ERROR 1054 (42S22): Unknown column 'roundId' in 'field list'
-mysql> INSERT INTO GameScores(id,roundId,startTime,endTime,description,team1Id,team2Id)
-    ->        values('8','2','2025/03/02','2025/03/02','Rojo_34','6','7');
-ERROR 1054 (42S22): Unknown column 'roundId' in 'field list'
-mysql> INSERT INTO GameScores(id,roundId,startTime,endTime,description,team1Id,team2Id)
-    ->        values('8','10','2025/03/02','2025/03/02','Rojo_34','6','7');
-ERROR 1054 (42S22): Unknown column 'roundId' in 'field list'
-mysql> INSERT INTO HockeyGame(id,roundId,startTime,endTime,description,team1Id,team2Id)
-       values('8','10','2025/03/02','2025/03/02','Rojo_34','6','7');INSERT INTO HockeyGame(id,roundId,startTime,endTime,description,team1Id,team2Id)
-^C
-mysql>        values('8','10','2025/03/02','2025/03/02','Rojo_34','6','7');
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '('8','10','2025/03/02','2025/03/02','Rojo_34','6','7')' at line 1
 mysql> INSERT INTO HockeyGame(id,roundId,startTime,endTime,description,team1Id,team2Id)
     ->        values('8','10','2025/03/02','2025/03/02','Rojo_34','6','7');
 Query OK, 1 row affected, 2 warnings (0.01 sec)
@@ -255,9 +198,6 @@ mysql> DESC HockeyTeamPlayer;
 +--------------+-------------+------+-----+---------+-------+
 6 rows in set (0.01 sec)
 
-mysql> ^C
-
-^C
 mysql> INSERT INTO HockeyTeamPlayer(id,hockeyTeamId,firstName,lastName,jerseyNum,position)
     ->        values('11','13','21','24','7','28');
 Query OK, 1 row affected (0.01 sec)
@@ -291,9 +231,6 @@ mysql> DESC User;
 +----------+-------------+------+-----+---------+-------+
 3 rows in set (0.01 sec)
 
-mysql> INSERT INTO User(id,username,password)
-       values('17','28','39');INSERT INTO User(id,username,password)
-^C
 mysql> INSERT INTO User(id,username,password)
     ->        values('17','28','39');
 Query OK, 1 row affected (0.01 sec)
@@ -329,9 +266,6 @@ mysql> DESC UserScorePicks;
 +--------------+------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
 
-mysql> INSERT INTO UserScorePicks(id,hockeyGameId,team1Score,team2Score,userId)
-       values('45','33','55','22','37');INSERT INTO UserScorePicks(id,hockeyGameId,team1Score,team2Score,userId)
-^C
 mysql> INSERT INTO UserScorePicks(id,hockeyGameId,team1Score,team2Score,userId)
     ->        values('45','33','55','22','37');
 Query OK, 1 row affected (0.00 sec)
@@ -431,3 +365,20 @@ mysql> DESC usuarios;
 mysql> INSERT INTO usuarios(idx,nombre,apellidos,departamento)
     ->        values('2','10','45','17');
 Query OK, 1 row affected (0.00 sec)
+mysql> SELECT * from usuarios;
++-----+----------+-----------+--------------+
+| idx | nombre   | apellidos | departamento |
++-----+----------+-----------+--------------+
+|   2 | 10       | 45        | 17           |
+|  12 | Alexa    | Guerra    | cbtis-246    |
+|  24 | Cristian | Jimenez   | cbtis-246    |
+|   9 | Diana    | Sanchez   | cbtis-246    |
+|  16 | Emiliano | Alvarez   | cbtis-246    |
+|  18 | Fernanda | Delgado   | cbtis-246    |
+|  15 | Jesus    | Calderon  | cbtis-246    |
+|   8 | Karen    | paz       | cbtis-246    |
+|  17 | Leonardo | Chavez    | cbtis-246    |
+|  19 | Luz      | Flores    | cbtis-246    |
+|  10 | Ximena   | Saldaña   | cbtis-246    |
++-----+----------+-----------+--------------+
+11 rows in set (0.00 sec)
