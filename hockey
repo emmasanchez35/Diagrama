@@ -1,1 +1,384 @@
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12910499
+Server version: 8.0.40 Source distribution
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
+mysql> CREATE TABLE playoffround(
+    ->     id int (16) NOT NULL,
+    ->     team1id int (13) NOT NULL,
+    ->     team2id int (13) NOT NULL,
+    ->     StartTime date NOT NULL, 
+    ->     endTime date NOT NULL,
+    ->     roundNum int (14) NOT NULL,
+    ->     PRIMARY KEY (id, StartTime)
+    -> );
+Query OK, 0 rows affected, 4 warnings (0.03 sec)
+
+mysql> CREATE TABLE HockeyGame(
+    ->     id int (16) NOT NULL,
+    ->     roundId int (13) NOT NULL,
+    ->     startTime date NOT NULL,
+    ->     endTime date NOT NULL,
+    ->     description varchar(255),
+    ->     team1Id int (13) NOT NULL,
+    ->     team2Id int (13) NOT NULL,
+    ->     PRIMARY KEY (id, startTime)
+    -> );
+Query OK, 0 rows affected, 4 warnings (0.02 sec)
+
+mysql> CREATE TABLE GameScores(
+    ->     id int (16) NOT NULL,
+    ->     team1Score int (13) NOT NULL,
+    ->     team2Score int (13) NOT NULL,
+    ->     PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected, 3 warnings (0.03 sec)
+
+mysql> CREATE TABLE RoundStats(
+    ->     id int (16) NOT NULL,
+    ->     numShutouts int (13),
+    ->     goalLeaderId int (13),
+    ->     assistLeaderId int (13),
+    ->     penaltyLeaderId int (13),
+    ->     plusMinusLeaderId int (13),
+    ->     faceoffsWonLeaderId int (13),
+    ->     sogLeaderId int (13),
+    ->     PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected, 8 warnings (0.02 sec)
+
+mysql> CREATE TABLE UserStatsPicks(
+    ->     id int (16) NOT NULL,
+    ->     roundId int (13) NOT NULL,
+    ->     goalLeaderId int (13),
+    ->     assistLeaderId int (13),
+    ->     penaltyLeaderId int (13),
+    ->     plusMinusLeaderId int (13),
+    ->     faceoffsWonLeaderId int (13),
+    ->     sogLeaderId int (13),
+    ->     numShutouts int (13),
+    ->     userId int (13) NOT NULL,
+    ->     PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected, 10 warnings (0.02 sec)
+
+mysql> CREATE TABLE User(
+    ->     id int (16) NOT NULL,
+    ->     username varchar(50) NOT NULL,
+    ->     password varchar(50) NOT NULL,
+    ->     PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> CREATE TABLE UserScorePicks(
+    ->     id int (16) NOT NULL,
+    ->     hockeyGameId int (13) NOT NULL,
+    ->     team1Score int (13) NOT NULL,
+    ->     team2Score int (13) NOT NULL,
+    ->     userId int (13) NOT NULL,
+    ->     PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected, 5 warnings (0.02 sec)
+
+mysql> CREATE TABLE HockeyTeam(
+    ->     id int (16) NOT NULL,
+    ->     name varchar(100) NOT NULL,
+    ->     logo varchar(100),
+    ->     PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> CREATE TABLE HockeyTeamPlayer(
+    ->     id int (16) NOT NULL,
+    ->     hockeyTeamId int (13) NOT NULL,
+    ->     firstName varchar(25) NOT NULL,
+    ->     lastName varchar(25) NOT NULL,
+    ->     jerseyNum int (13),
+    ->     position varchar(30),
+    ->     PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected, 3 warnings (0.03 sec)
+
+mysql> CREATE TABLE UserInfo(
+    ->     id int (16) NOT NULL,
+    ->     firstName varchar(25) NOT NULL,
+    ->     lastName varchar(25) NOT NULL,
+    ->     email varchar(25) NOT NULL,
+    ->     round1Points int (13),
+    ->     round2Points int (13),
+    ->     round3Points int (13),
+    ->     round4Points int (13),
+    ->     PRIMARY KEY (id)
+    -> );
+Query OK, 0 rows affected, 5 warnings (0.04 sec)
+
+mysql> show tables;
++---------------------------------+
+| Tables_in_emmasanchez35$default |
++---------------------------------+
+| GameScores                      |
+| HockeyGame                      |
+| HockeyTeam                      |
+| HockeyTeamPlayer                |
+| RoundStats                      |
+| User                            |
+| UserInfo                        |
+| UserScorePicks                  |
+| UserStatsPicks                  |
+| detalle_horario                 |
+| horario                         |
+| plantilla_detalle_horario       |
+| playoffround                    |
+| usuarios                        |
++---------------------------------+
+14 rows in set (0.00 sec)
+
+mysql> DESC GameScores;
++------------+------+------+-----+---------+-------+
+| Field      | Type | Null | Key | Default | Extra |
++------------+------+------+-----+---------+-------+
+| id         | int  | NO   | PRI | NULL    |       |
+| team1Score | int  | NO   |     | NULL    |       |
+| team2Score | int  | NO   |     | NULL    |       |
++------------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO GameScores(id,team1Score,team2Score)
+    ->        values('6','5','7');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DESC HockeyGame; 
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| id          | int          | NO   | PRI | NULL    |       |
+| roundId     | int          | NO   |     | NULL    |       |
+| startTime   | date         | NO   | PRI | NULL    |       |
+| endTime     | date         | NO   |     | NULL    |       |
+| description | varchar(255) | YES  |     | NULL    |       |
+| team1Id     | int          | NO   |     | NULL    |       |
+| team2Id     | int          | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> INSERT INTO HockeyGame(id,roundId,startTime,endTime,description,team1Id,team2Id)
+    ->        values('8','10','2025/03/02','2025/03/02','Rojo_34','6','7');
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+mysql> DESC  HockeyTeam;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | int          | NO   | PRI | NULL    |       |
+| name  | varchar(100) | NO   |     | NULL    |       |
+| logo  | varchar(100) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO HockeyTeam(id,name,logo)
+    ->        values('6','56','86');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DESC HockeyTeamPlayer;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| id           | int         | NO   | PRI | NULL    |       |
+| hockeyTeamId | int         | NO   |     | NULL    |       |
+| firstName    | varchar(25) | NO   |     | NULL    |       |
+| lastName     | varchar(25) | NO   |     | NULL    |       |
+| jerseyNum    | int         | YES  |     | NULL    |       |
+| position     | varchar(30) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> INSERT INTO HockeyTeamPlayer(id,hockeyTeamId,firstName,lastName,jerseyNum,position)
+    ->        values('11','13','21','24','7','28');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DESC RoundStats;
++---------------------+------+------+-----+---------+-------+
+| Field               | Type | Null | Key | Default | Extra |
++---------------------+------+------+-----+---------+-------+
+| id                  | int  | NO   | PRI | NULL    |       |
+| numShutouts         | int  | YES  |     | NULL    |       |
+| goalLeaderId        | int  | YES  |     | NULL    |       |
+| assistLeaderId      | int  | YES  |     | NULL    |       |
+| penaltyLeaderId     | int  | YES  |     | NULL    |       |
+| plusMinusLeaderId   | int  | YES  |     | NULL    |       |
+| faceoffsWonLeaderId | int  | YES  |     | NULL    |       |
+| sogLeaderId         | int  | YES  |     | NULL    |       |
++---------------------+------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> INSERT INTO RoundStats(id,numShutouts,goalLeaderId,assistLeaderId,penaltyLeaderId,plusMinusLeaderId,faceoffsWonLeaderId,sogLeaderId)
+    ->        values('15','17','9','24','25','34','19','23');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DESC User;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | int         | NO   | PRI | NULL    |       |
+| username | varchar(50) | NO   |     | NULL    |       |
+| password | varchar(50) | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO User(id,username,password)
+    ->        values('17','28','39');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DESC UserInfo;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| id           | int         | NO   | PRI | NULL    |       |
+| firstName    | varchar(25) | NO   |     | NULL    |       |
+| lastName     | varchar(25) | NO   |     | NULL    |       |
+| email        | varchar(25) | NO   |     | NULL    |       |
+| round1Points | int         | YES  |     | NULL    |       |
+| round2Points | int         | YES  |     | NULL    |       |
+| round3Points | int         | YES  |     | NULL    |       |
+| round4Points | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> INSERT INTO UserInfo(id,firstName,lastName,email,round1Points,round2Points,round3Points,round4Points)
+    ->        values('10','23','21','19','37','32','44','30');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DESC UserScorePicks;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| id           | int  | NO   | PRI | NULL    |       |
+| hockeyGameId | int  | NO   |     | NULL    |       |
+| team1Score   | int  | NO   |     | NULL    |       |
+| team2Score   | int  | NO   |     | NULL    |       |
+| userId       | int  | NO   |     | NULL    |       |
++--------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO UserScorePicks(id,hockeyGameId,team1Score,team2Score,userId)
+    ->        values('45','33','55','22','37');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DESC UserStatsPicks;
++---------------------+------+------+-----+---------+-------+
+| Field               | Type | Null | Key | Default | Extra |
++---------------------+------+------+-----+---------+-------+
+| id                  | int  | NO   | PRI | NULL    |       |
+| roundId             | int  | NO   |     | NULL    |       |
+| goalLeaderId        | int  | YES  |     | NULL    |       |
+| assistLeaderId      | int  | YES  |     | NULL    |       |
+| penaltyLeaderId     | int  | YES  |     | NULL    |       |
+| plusMinusLeaderId   | int  | YES  |     | NULL    |       |
+| faceoffsWonLeaderId | int  | YES  |     | NULL    |       |
+| sogLeaderId         | int  | YES  |     | NULL    |       |
+| numShutouts         | int  | YES  |     | NULL    |       |
+| userId              | int  | NO   |     | NULL    |       |
++---------------------+------+------+-----+---------+-------+
+10 rows in set (0.01 sec)
+
+mysql> INSERT INTO UserStatsPicks(id,roundId,goalLeaderId,assistLeaderId,penaltyLeaderId,plusMinusLeaderId,faceoffsWonLeaderId,sogLeaderId,numShutouts,userId)
+    ->        values('20','43','29','65','46','77','84','49','31','50');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DESC detalle_horario;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| horario_id         | int         | NO   | PRI | NULL    |       |
+| hora_salida        | date        | NO   | PRI | NULL    |       |
+| hora_entrada       | date        | NO   |     | NULL    |       |
+| codigo_incapacidad | varchar(25) | YES  |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> INSERT INTO detalle_horario(horario_id,hora_salida,hora_entrada,codigo_incapacidad)
+    ->        values('26','2025/03/02','2025/03/02','24');
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+mysql> DESC horario;
++--------------+------+------+-----+---------+----------------+
+| Field        | Type | Null | Key | Default | Extra          |
++--------------+------+------+-----+---------+----------------+
+| horario_id   | int  | NO   | PRI | NULL    | auto_increment |
+| plantilla_id | int  | YES  |     | NULL    |                |
++--------------+------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO horario(horario_id,plantilla_id)
+    ->        values('76','11');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DESC plantilla_detalle_horario;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| plantilla_id       | int         | NO   | PRI | NULL    |       |
+| dia                | int         | NO   | PRI | NULL    |       |
+| codigo_incapacidad | varchar(25) | YES  |     | NULL    |       |
+| turno              | varchar(25) | YES  |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO plantilla_detalle_horario(plantilla_id,dia,codigo_incapacidad,turno)
+    ->        values('23','19','21','22');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DESC playoffround;
++-----------+------+------+-----+---------+-------+
+| Field     | Type | Null | Key | Default | Extra |
++-----------+------+------+-----+---------+-------+
+| id        | int  | NO   | PRI | NULL    |       |
+| team1id   | int  | NO   |     | NULL    |       |
+| team2id   | int  | NO   |     | NULL    |       |
+| StartTime | date | NO   | PRI | NULL    |       |
+| endTime   | date | NO   |     | NULL    |       |
+| roundNum  | int  | NO   |     | NULL    |       |
++-----------+------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> INSERT INTO playoffround(id,team1id,team2id,StartTime,endTime,roundNum)
+    ->        values('44','53','69','2025/03/02','2023/03/02','45');
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+mysql> DESC usuarios;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| idx          | int          | NO   |     | NULL    |       |
+| nombre       | varchar(100) | NO   | PRI | NULL    |       |
+| apellidos    | varchar(100) | NO   | PRI | NULL    |       |
+| departamento | varchar(100) | NO   |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> INSERT INTO usuarios(idx,nombre,apellidos,departamento)
+    ->        values('2','10','45','17');
+Query OK, 1 row affected (0.00 sec)
+mysql> SELECT * from usuarios;
++-----+----------+-----------+--------------+
+| idx | nombre   | apellidos | departamento |
++-----+----------+-----------+--------------+
+|   2 | 10       | 45        | 17           |
+|  12 | Alexa    | Guerra    | cbtis-246    |
+|  24 | Cristian | Jimenez   | cbtis-246    |
+|   9 | Diana    | Sanchez   | cbtis-246    |
+|  16 | Emiliano | Alvarez   | cbtis-246    |
+|  18 | Fernanda | Delgado   | cbtis-246    |
+|  15 | Jesus    | Calderon  | cbtis-246    |
+|   8 | Karen    | paz       | cbtis-246    |
+|  17 | Leonardo | Chavez    | cbtis-246    |
+|  19 | Luz      | Flores    | cbtis-246    |
+|  10 | Ximena   | Saldaña   | cbtis-246    |
++-----+----------+-----------+--------------+
+11 rows in set (0.00 sec)
