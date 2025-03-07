@@ -1,0 +1,220 @@
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15923031
+Server version: 8.0.40 Source distribution
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++-----------------------+
+| Database              |
++-----------------------+
+| emmasanchez35$default |
+| information_schema    |
+| performance_schema    |
++-----------------------+
+3 rows in set (0.07 sec)
+
+mysql> CREATE TABLE BOOKS (
+    ->     -> ID INT NOT NULL,
+    ->     -> NAME VARCHAR(50) NOT NULL,
+    ->     -> PRICE INT NOT NULL,
+    ->     -> CATEGORYID INT NOT NULL,
+    ->     -> AUTHORID INT NOT NULL,
+    ->     -> PRIMARY KEY(ID, NAME)
+    ->     -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> ID INT NOT NULL,
+    -> NAME VARCHAR(50) NOT NULL,
+    -> PRICE INT NOT NULL,' at line 2
+mysql> CREATE TABLE BOOKS (
+    ->     ID INT NOT NULL,
+    ->     NAME VARCHAR(50) NOT NULL,
+    ->     PRICE INT NOT NULL,
+    ->     CATEGORYID INT NOT NULL,
+    ->     AUTHORID INT NOT NULL,
+    ->     PRIMARY KEY(ID, NAME)
+    ->     );
+ERROR 1050 (42S01): Table 'BOOKS' already exists
+mysql> CREATE TABLE CATEGORIES(
+    ->     ID INT NOT NULL,
+    ->     NAME VARCHAR(50) NOT NULL,
+    ->     PRIMARY KEY(ID, NAME)
+    ->      );
+ERROR 1050 (42S01): Table 'CATEGORIES' already exists
+mysql> CREATE TABLE AUTHORS (
+    ->     ID INT NOT NULL,
+    ->     NAME VARCHAR(50) NOT NULL,
+    ->      PRIMARY KEY(ID, NAME)
+    ->      );
+ERROR 1050 (42S01): Table 'AUTHORS' already exists
+mysql>  INSERT INTO
+    ->     CATEGORIES
+    ->     VALUES
+    ->     (1, 'Cat-A'),
+    ->     (2, 'Cat-B'),
+    ->     (3, 'Cat-C'),
+    ->     (7, 'Cat-D'),
+    ->     (8, 'Cat-E'),
+    ->     (4, 'Cat-F'),
+    ->     (10, 'Cat-G'),
+    ->     (12, 'Cat-H'),
+    ->      (6, 'Cat-I');
+ERROR 1062 (23000): Duplicate entry '1' for key 'CATEGORIES.PRIMARY'
+mysql> SELECT * from BOOKS INNER JOIN AUTHORS ON BOOKS.AUTHORID = AUTHORS.ID;
++----+--------+-------+------------+----------+----+----------+
+| ID | name   | PRICE | CATEGORYID | AUTHORID | ID | name     |
++----+--------+-------+------------+----------+----+----------+
+|  1 | Book-A |   100 |          1 |        2 |  2 | Author-B |
+|  2 | Book-B |   200 |          2 |        2 |  2 | Author-B |
+|  3 | Book-C |   150 |          3 |        2 |  2 | Author-B |
+|  4 | Book-D |   100 |          3 |        1 |  1 | Author-A |
+|  5 | Book-E |   200 |          3 |        1 |  1 | Author-A |
+|  6 | Book-F |   150 |          4 |        1 |  1 | Author-A |
+|  7 | Book-G |   100 |          5 |        5 |  5 | Author-E |
+|  8 | Book-H |   200 |          5 |        6 |  6 | Author-F |
+|  9 | Book-I |   150 |          7 |        8 |  8 | Author-H |
+| 10 | Book-A |   100 |          1 |        2 |  2 | Author-B |
+| 11 | Book-B |   200 |          2 |        2 |  2 | Author-B |
+| 12 | Book-C |   150 |          3 |        2 |  2 | Author-B |
+| 13 | Book-D |   100 |          3 |        1 |  1 | Author-A |
+| 14 | Book-E |   200 |          3 |        1 |  1 | Author-A |
+| 15 | Book-F |   150 |          4 |        1 |  1 | Author-A |
+| 16 | Book-G |   100 |          5 |        5 |  5 | Author-E |
+| 17 | Book-H |   200 |          5 |        6 |  6 | Author-F |
+| 18 | Book-I |   150 |          7 |        8 |  8 | Author-H |
++----+--------+-------+------------+----------+----+----------+
+18 rows in set (0.01 sec)
+
+mysql> SELECT * from BOOKS INNER JOIN AUTHORS ON BOOKS.AUTHORID = AUTHORS.ID;
++----+--------+-------+------------+----------+----+----------+
+| ID | name   | PRICE | CATEGORYID | AUTHORID | ID | name     |
++----+--------+-------+------------+----------+----+----------+
+|  1 | Book-A |   100 |          1 |        2 |  2 | Author-B |
+|  2 | Book-B |   200 |          2 |        2 |  2 | Author-B |
+|  3 | Book-C |   150 |          3 |        2 |  2 | Author-B |
+|  4 | Book-D |   100 |          3 |        1 |  1 | Author-A |
+|  5 | Book-E |   200 |          3 |        1 |  1 | Author-A |
+|  6 | Book-F |   150 |          4 |        1 |  1 | Author-A |
+|  7 | Book-G |   100 |          5 |        5 |  5 | Author-E |
+|  8 | Book-H |   200 |          5 |        6 |  6 | Author-F |
+|  9 | Book-I |   150 |          7 |        8 |  8 | Author-H |
+| 10 | Book-A |   100 |          1 |        2 |  2 | Author-B |
+| 11 | Book-B |   200 |          2 |        2 |  2 | Author-B |
+| 12 | Book-C |   150 |          3 |        2 |  2 | Author-B |
+| 13 | Book-D |   100 |          3 |        1 |  1 | Author-A |
+| 14 | Book-E |   200 |          3 |        1 |  1 | Author-A |
+| 15 | Book-F |   150 |          4 |        1 |  1 | Author-A |
+| 16 | Book-G |   100 |          5 |        5 |  5 | Author-E |
+| 17 | Book-H |   200 |          5 |        6 |  6 | Author-F |
+| 18 | Book-I |   150 |          7 |        8 |  8 | Author-H |
++----+--------+-------+------------+----------+----+----------+
+18 rows in set (0.00 sec)
+
+mysql> SELECT * from BOOKS
+    -> LEFT JOIN CATEGORIES ON BOOKS.CATEGORYID = CATEGORIES.ID;
++----+--------+-------+------------+----------+------+-------+
+| ID | name   | PRICE | CATEGORYID | AUTHORID | ID   | name  |
++----+--------+-------+------------+----------+------+-------+
+|  1 | Book-A |   100 |          1 |        2 |    1 | Cat-A |
+|  2 | Book-B |   200 |          2 |        2 |    2 | Cat-B |
+|  3 | Book-C |   150 |          3 |        2 |    3 | Cat-C |
+|  4 | Book-D |   100 |          3 |        1 |    3 | Cat-C |
+|  5 | Book-E |   200 |          3 |        1 |    3 | Cat-C |
+|  6 | Book-F |   150 |          4 |        1 |    4 | Cat-D |
+|  7 | Book-G |   100 |          5 |        5 |    5 | Cat-E |
+|  8 | Book-H |   200 |          5 |        6 |    5 | Cat-E |
+|  9 | Book-I |   150 |          7 |        8 |    7 | Cat-G |
+| 10 | Book-A |   100 |          1 |        2 |    1 | Cat-A |
+| 11 | Book-B |   200 |          2 |        2 |    2 | Cat-B |
+| 12 | Book-C |   150 |          3 |        2 |    3 | Cat-C |
+| 13 | Book-D |   100 |          3 |        1 |    3 | Cat-C |
+| 14 | Book-E |   200 |          3 |        1 |    3 | Cat-C |
+| 15 | Book-F |   150 |          4 |        1 |    4 | Cat-D |
+| 16 | Book-G |   100 |          5 |        5 |    5 | Cat-E |
+| 17 | Book-H |   200 |          5 |        6 |    5 | Cat-E |
+| 18 | Book-I |   150 |          7 |        8 |    7 | Cat-G |
++----+--------+-------+------------+----------+------+-------+
+18 rows in set (0.00 sec)
+
+mysql> SELECT * from BOOKS
+    ->  RIGHT JOIN CATEGORIES ON BOOKS.CATEGORYID = CATEGORIES.ID;
++------+--------+-------+------------+----------+----+-------+
+| ID   | name   | PRICE | CATEGORYID | AUTHORID | ID | name  |
++------+--------+-------+------------+----------+----+-------+
+|    1 | Book-A |   100 |          1 |        2 |  1 | Cat-A |
+|   10 | Book-A |   100 |          1 |        2 |  1 | Cat-A |
+|    2 | Book-B |   200 |          2 |        2 |  2 | Cat-B |
+|   11 | Book-B |   200 |          2 |        2 |  2 | Cat-B |
+|    3 | Book-C |   150 |          3 |        2 |  3 | Cat-C |
+|    4 | Book-D |   100 |          3 |        1 |  3 | Cat-C |
+|    5 | Book-E |   200 |          3 |        1 |  3 | Cat-C |
+|   12 | Book-C |   150 |          3 |        2 |  3 | Cat-C |
+|   13 | Book-D |   100 |          3 |        1 |  3 | Cat-C |
+|   14 | Book-E |   200 |          3 |        1 |  3 | Cat-C |
+|    6 | Book-F |   150 |          4 |        1 |  4 | Cat-D |
+|   15 | Book-F |   150 |          4 |        1 |  4 | Cat-D |
+|    7 | Book-G |   100 |          5 |        5 |  5 | Cat-E |
+|    8 | Book-H |   200 |          5 |        6 |  5 | Cat-E |
+|   16 | Book-G |   100 |          5 |        5 |  5 | Cat-E |
+|   17 | Book-H |   200 |          5 |        6 |  5 | Cat-E |
+| 14 | Book-E |   200 |          3 |        1 |  1 | Author-A |
+| NULL | NULL   |  NULL |       NULL |     NULL |  6 | Cat-F |
+|    9 | Book-I |   150 |          7 |        8 |  7 | Cat-G |
+|   18 | Book-I |   150 |          7 |        8 |  7 | Cat-G |
+| NULL | NULL   |  NULL |       NULL |     NULL |  8 | Cat-H |
+| NULL | NULL   |  NULL |       NULL |     NULL |  9 | Cat-I |
++------+--------+-------+------------+----------+----+-------+
+21 rows in set (0.00 sec)
+mysql>  SELECT * from BOOKS RIGHT OUTER JOIN CATEGORIES ON BOOKS.CATEGORYID = CATEGORIES.ID;
++------+--------+-------+------------+----------+----+-------+
+| ID   | name   | PRICE | CATEGORYID | AUTHORID | ID | name  |
++------+--------+-------+------------+----------+----+-------+
+|    1 | Book-A |   100 |          1 |        2 |  1 | Cat-A |
+|   10 | Book-A |   100 |          1 |        2 |  1 | Cat-A |
+|    2 | Book-B |   200 |          2 |        2 |  2 | Cat-B |
+|   11 | Book-B |   200 |          2 |        2 |  2 | Cat-B |
+|    3 | Book-C |   150 |          3 |        2 |  3 | Cat-C |
+|    4 | Book-D |   100 |          3 |        1 |  3 | Cat-C |
+|    5 | Book-E |   200 |          3 |        1 |  3 | Cat-C |
+|   12 | Book-C |   150 |          3 |        2 |  3 | Cat-C |
+|   13 | Book-D |   100 |          3 |        1 |  3 | Cat-C |
+|   14 | Book-E |   200 |          3 |        1 |  3 | Cat-C |
+|    6 | Book-F |   150 |          4 |        1 |  4 | Cat-D |
+|   15 | Book-F |   150 |          4 |        1 |  4 | Cat-D |
+|    7 | Book-G |   100 |          5 |        5 |  5 | Cat-E |
+|    8 | Book-H |   200 |          5 |        6 |  5 | Cat-E |
+|   16 | Book-G |   100 |          5 |        5 |  5 | Cat-E |
+|   17 | Book-H |   200 |          5 |        6 |  5 | Cat-E |
+| NULL | NULL   |  NULL |       NULL |     NULL |  6 | Cat-F |
+|    9 | Book-I |   150 |          7 |        8 |  7 | Cat-G |
+|   18 | Book-I |   150 |          7 |        8 |  7 | Cat-G |
+| NULL | NULL   |  NULL |       NULL |     NULL |  8 | Cat-H |
+| NULL | NULL   |  NULL |       NULL |     NULL |  9 | Cat-I |
++------+--------+-------+------------+----------+----+-------+
+21 rows in set (0.00 sec)
+mysql> SELECT * from BOOKS
+    ->  LEFT JOIN AUTHORS
+    ->  ON BOOKS.AUTHORID = AUTHORS.ID
+    ->  WHERE AUTHORS.ID IS NULL;
++----+--------+-------+------------+----------+------+------+
+| ID | NAME   | PRICE | CATEGORYID | AUTHORID | ID   | NAME |
++----+--------+-------+------------+----------+------+------+
+|  7 | Book-G |   100 |          5 |        5 | NULL | NULL |
+|  8 | Book-H |   200 |          5 |        6 | NULL | NULL |
+|  9 | Book-I |   150 |          7 |        8 | NULL | NULL |
++----+--------+-------+------------+----------+------+------+
+3 rows in set (0.00 sec)
+mysql> SELECT * FROM BOOKS
+ RIGHT JOIN AUTHORS
+ ON BOOKS.AUTHORID = AUTHORS.ID
+ WHERE AUTHORS.ID IS NULL;
+Empty set (0.00 sec)
+mysql> 
